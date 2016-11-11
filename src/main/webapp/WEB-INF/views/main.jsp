@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>YEOSAMRI</title>
-<link rel="stylesheet" type="text/css" href="css/semantic.min.css">
+<link rel="stylesheet" type="text/css" href="css/semantic.css">
 <link rel="stylesheet" type="text/css" href="css/common.css">
 <script src="js/jquery-3.1.1.min.js"></script>
 <script src="js/semantic.min.js"></script>
@@ -22,5 +22,15 @@
 			<a href="#" class="item">민다방</a>
 		</div>
 	</div>
+	
+	<div class="ui container main" style="width: 100%">
+		<div class="main-font">여삼리에<br>오신걸 환영합니다.</div>
+		<img src="img/main.jpg" width="100%" height="100%"/>
+	</div>
 </body>
+<script>
+$(document).ready(function() {
+	$(".main").css("height", $(window).height());
+});
+</script>
 </html>

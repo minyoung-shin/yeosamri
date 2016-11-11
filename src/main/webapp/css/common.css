@@ -2,7 +2,13 @@
     font-family: 'YouandiModernTR'; 
     src: url(a장미다방.ttf); 
 }
+@font-face {
+    font-family: 'jongno'; 
+    src: url(RixJongnoR.ttf); 
+}
 
 .menu .container .item {font-family: 'YouandiModernTR'; font-size: 20px; padding: 15px 20px;}
-.menu .container .item .logo {transform: rotate(-30deg); width: 30px !important; margin-right: 5px !important;}
+.menu .container .item .logo {transform: rotate(-15deg); width: 30px !important; margin-right: 5px !important;}
 .menu .container .header {font-size: 2em;}
+
+.main-font {position: absolute; font-family: 'jongno'; font-size: 100px; margin: 200px 100px; line-height: 1.2; text-shadow: 2px 2px #fff;}
