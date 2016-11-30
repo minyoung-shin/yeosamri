@@ -17,11 +17,11 @@
 	
 	<!-- Tiles -->
 	<beans:bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-        <beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView" />
+        <beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
         <beans:property name="order" value="1"/>
     </beans:bean>
 
-    <beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+    <beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
         <beans:property name="definitions">
             <beans:list>
                 <beans:value>/WEB-INF/spring/tiles-layouts.xml</beans:value>
@@ -36,6 +36,6 @@
 		<beans:property name="order" value="2" />
 	</beans:bean>
 	
-	<context:component-scan base-package="kr.co.yeosamri.controller" />
+	<context:component-scan base-package="kr.co.yeosamri" />
 	
 </beans:beans>

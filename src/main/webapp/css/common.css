@@ -2,8 +2,13 @@
     font-family: 'YouandiModernTR';
     src: url(../font/a장미다방.ttf); 
 }
+@font-face {
+    font-family: 'computa';
+    src: url(../font/210콤퓨타세탁L.ttf); 
+}
 
-body {background-image: url('../img/main.png'); background-size: cover;}
+/* body {background-image: url('../img/main.png'); background-size: cover;} */
+body {background-color: #fee857; font-family: 'computa'; font-weight: normal;}
 
 .navbar {border-radius: 0px;}
 .navbar-default {background-color: #542708; border-color: #542708;}
@@ -16,7 +21,7 @@ body {background-image: url('../img/main.png'); background-size: cover;}
 -------------------------------- */
 .cd-container {
   /* this class is used to give a max-width to the element it is applied to, and center it horizontally when it reaches that max-width */
-  width: 90%;
+  width: 100%;
   max-width: 1170px;
   margin: 0 auto;
 }
@@ -29,8 +34,7 @@ body {background-image: url('../img/main.png'); background-size: cover;}
 
 #cd-timeline {
   position: relative;
-  padding: 2em 0;
-  margin-top: 2em;
+  padding: 3em 0;
   margin-bottom: 2em;
 }
 #cd-timeline::before {

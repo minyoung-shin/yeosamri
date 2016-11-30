@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Yeosamri">
+
+	<insert id="insertHistory" parameterType="hashmap">
+		INSERT INTO HISTORY(post_date, group1, group2, title, content, insert_date, edit_date)
+		VALUES(#{postDate}, #{group1}, #{group2}, #{title}, #{content}, now(), now())
+    </insert>
+    
+</mapper>
