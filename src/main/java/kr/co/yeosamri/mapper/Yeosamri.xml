@@ -4,8 +4,51 @@
 <mapper namespace="Yeosamri">
 
 	<insert id="insertHistory" parameterType="hashmap">
-		INSERT INTO HISTORY(post_date, group1, group2, title, content, insert_date, edit_date)
-		VALUES(#{postDate}, #{group1}, #{group2}, #{title}, #{content}, now(), now())
+		INSERT INTO HISTORY(post_date, group1, group2, title, content, photo_url, insert_date, edit_date)
+		VALUES(#{postDate}, #{group1}, #{group2}, #{title}, #{content}, #{photoUrl}, now(), now())
     </insert>
+    
+    <select id="selectHistory" resultType="history">
+    	SELECT
+    		history_no 'historyNo',
+    		concat(date_format(post_date, '%Y-%m-%d'),'(',left(dayname(post_date),3),')') 'postDate',
+    		group1,
+    		group2,
+    		title,
+    		content,
+    		photo_url 'photoUrl',
+    		insert_date 'insertDate',
+    		edit_date 'editDate' 
+    	 FROM HISTORY
+    	ORDER BY post_date desc
+    </select>
+    
+    <select id="selectHistoryDetail" resultType="history" parameterType="hashmap">
+    	SELECT
+    		history_no 'historyNo',
+    		date_format(post_date, '%Y-%m-%d') 'postDate',
+    		group1,
+    		group2,
+    		title,
+    		content,
+    		photo_url 'photoUrl',
+    		insert_date 'insertDate',
+    		edit_date 'editDate' 
+    	 FROM HISTORY
+    	WHERE history_no = #{historyNo}
+    </select>
+    
+    <update id="updateHistory" parameterType="hashmap">
+    	UPDATE HISTORY
+    	   SET
+    		post_date = #{postDate},
+    		group1 = #{group1},
+    		group2 = #{group2},
+    		title = #{title},
+    		content = #{content},
+    		photo_url = #{photoUrl},
+    		edit_date = now() 
+    	WHERE history_no = #{historyNo}
+    </update>
     
 </mapper>

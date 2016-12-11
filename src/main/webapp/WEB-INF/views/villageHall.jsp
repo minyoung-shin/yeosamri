@@ -1,110 +1,71 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <div class="container">
-		<div class="col-lg-12">
-			<a class="btn btn-default pull-right" role="button" data-toggle="modal" data-target="#myModal">등록</a>
+	<div class="row">
+		<div class="col-xs-12 text-right">
+			<a class="btn" data-toggle="modal" data-target=".bs-example-modal-lg">등록</a>
 			
-			<section id="cd-timeline" class="cd-container">
-				<div class="cd-timeline-block">
-					<div class="cd-timeline-img cd-picture">
-						<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/cd-icon-picture.svg" alt="Picture">
-					</div> <!-- cd-timeline-img -->
-		
-					<div class="cd-timeline-content">
-						<h2>Title of section 1</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.</p>
-						<a href="#0" class="cd-read-more">Read more</a>
-						<span class="cd-date">Jan 14</span>
-					</div> <!-- cd-timeline-content -->
-				</div> <!-- cd-timeline-block -->
-		
-				<div class="cd-timeline-block">
-					<div class="cd-timeline-img cd-movie">
-						<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/cd-icon-movie.svg" alt="Movie">
-					</div> <!-- cd-timeline-img -->
-		
-					<div class="cd-timeline-content">
-						<h2>Title of section 2</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde?</p>
-						<a href="#0" class="cd-read-more">Read more</a>
-						<span class="cd-date">Jan 18</span>
-					</div> <!-- cd-timeline-content -->
-				</div> <!-- cd-timeline-block -->
-		
-				<div class="cd-timeline-block">
-					<div class="cd-timeline-img cd-picture">
-						<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/cd-icon-picture.svg" alt="Picture">
-					</div> <!-- cd-timeline-img -->
-		
-					<div class="cd-timeline-content">
-						<h2>Title of section 3</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi, obcaecati, quisquam id molestias eaque asperiores voluptatibus cupiditate error assumenda delectus odit similique earum voluptatem doloremque dolorem ipsam quae rerum quis. Odit, itaque, deserunt corporis vero ipsum nisi eius odio natus ullam provident pariatur temporibus quia eos repellat consequuntur perferendis enim amet quae quasi repudiandae sed quod veniam dolore possimus rem voluptatum eveniet eligendi quis fugiat aliquam sunt similique aut adipisci.</p>
-						<a href="#0" class="cd-read-more">Read more</a>
-						<span class="cd-date">Jan 24</span>
-					</div> <!-- cd-timeline-content -->
-				</div> <!-- cd-timeline-block -->
-		
-				<div class="cd-timeline-block">
-					<div class="cd-timeline-img cd-location">
-						<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/cd-icon-location.svg" alt="Location">
-					</div> <!-- cd-timeline-img -->
-		
-					<div class="cd-timeline-content">
-						<h2>Title of section 4</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.</p>
-						<a href="#0" class="cd-read-more">Read more</a>
-						<span class="cd-date">Feb 14</span>
-					</div> <!-- cd-timeline-content -->
-				</div> <!-- cd-timeline-block -->
-		
-				<div class="cd-timeline-block">
-					<div class="cd-timeline-img cd-location">
-						<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/cd-icon-location.svg" alt="Location">
-					</div> <!-- cd-timeline-img -->
-		
-					<div class="cd-timeline-content">
-						<h2>Title of section 5</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum.</p>
-						<a href="#0" class="cd-read-more">Read more</a>
-						<span class="cd-date">Feb 18</span>
-					</div> <!-- cd-timeline-content -->
-				</div> <!-- cd-timeline-block -->
-		
-				<div class="cd-timeline-block">
-					<div class="cd-timeline-img cd-movie">
-						<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/cd-icon-movie.svg" alt="Movie">
-					</div> <!-- cd-timeline-img -->
-		
-					<div class="cd-timeline-content">
-						<h2>Final Section</h2>
-						<p>This is the content of the last section</p>
-						<span class="cd-date">Feb 26</span>
-					</div> <!-- cd-timeline-content -->
-				</div> <!-- cd-timeline-block -->
-			</section> <!-- cd-timeline -->
+			<div class="hidden" id="insertWrap">
+				<div class="well">
+				  ...
+				</div>
+			</div>
 		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-xs-12">
+			<section id="cd-timeline" class="cd-container">
+			<c:forEach var="vo" items="${historyList}" >
+				<div class="cd-timeline-block cursor" data-history-no="${vo.historyNo}">
+					<div class="cd-timeline-img cd-picture">
+						<c:if test="${vo.group2 == '대화'}">
+						<img src="img/fun.png">
+						</c:if>
+						<c:if test="${vo.group2 == '일정'}">
+						<img src="img/issue.png">
+						</c:if>
+					</div>
+					<div class="cd-timeline-content">
+						<button type="button" class="close" aria-label="Close" data-history-no="${vo.historyNo}">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<div class="cd-date"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>${vo.postDate}</div>
+					<c:if test="${!empty vo.photoUrl}">	
+						<img src="upload/${vo.photoUrl}">
+					</c:if>
+						<h4>${vo.title}</h4>
+						<p>${vo.content}</p>
+					</div>
+				</div>
+			</c:forEach>
+			</section>
+		</div>
+	</div>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
+	    	<form action="insertHistory" class="form-horizontal" enctype="multipart/form-data" method="POST">
+			<input type="hidden" name="historyNo" id="historyNo">
 		    <div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title" id="myModalLabel">공지등록</h4>
 		    </div>
 		    <div class="modal-body">
-	    	<form class="form-horizontal" enctype="multipart/form-data" id="historyForm">
 				<div class="form-group">
 					<label class="col-sm-2 control-label">공지날짜</label>
 				  	<div class="col-sm-10">
-				 		<input type="date" class="form-control" name="postDate">
+				 		<input type="date" class="form-control" name="postDate" id="postDate">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label">사람구분</label>
 				  	<div class="col-sm-10">
-				 		<select class="form-control" name="group1">
+				 		<select class="form-control" name="group1" id="group1">
 							<option>민영</option>
 							<option>용숙</option>
 							<option>하영</option>
@@ -114,7 +75,7 @@
 				<div class="form-group">
 					<label class="col-sm-2 control-label">내용구분</label>
 				  	<div class="col-sm-10">
-				 		<select class="form-control" name="group2">
+				 		<select class="form-control" name="group2" id="group2">
 							<option>일정</option>
 							<option>대화</option>
 						</select>
@@ -123,24 +84,25 @@
 				<div class="form-group">
 					<label class="col-sm-2 control-label">제목</label>
 				  	<div class="col-sm-10">
-				 		<input type="text" class="form-control" name="title">
+				 		<input type="text" class="form-control" name="title" id="title">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label">내용</label>
 				  	<div class="col-sm-10">
-				  		<textarea class="form-control" rows="10" cols="10" name="content"></textarea>
+				  		<textarea class="form-control" rows="10" cols="10" name="content" id="content"></textarea>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label">사진첨부</label>
-			 		<input type="file" class="col-sm-10" style="border-color: transparent;">
+			 		<input type="file" class="col-sm-10" style="border-color: transparent;" name="photo" id="photo">
 				</div>
-			</form>
 		    </div>
 		    <div class="modal-footer">
-	     		<button type="button" class="btn btn-primary" id="registerBtn">등록</button>
+	     		<button type="submit" class="btn btn-primary" id="registerBtn">등록</button>
+	     		<button type="submit" class="btn btn-primary hidden" id="updateBtn">수정</button>
 		    </div>
+			</form>
 		</div>
 	</div>
 </div>
@@ -172,22 +134,53 @@ $(document).ready(function() {
 		});
 	}
 	
-	// 히스토리 등록
-	$("#registerBtn").click(function() {
-		params = $("#historyForm").serialize(); 
-        
-        $.ajax({
-			url : '/insertHistory',
+	// history 상세보기
+	$(".cd-timeline-block").click(function() {
+		if(confirm("수정하시겠습니까?")) {
+			$.ajax({
+				url : './selectHistoryDetail',
+				type : 'GET',
+				dataType : 'json',
+				data : { "historyNo" : $(this).attr("data-history-no") },
+				success : function(data) {
+					$("#historyNo").val(data.vo.historyNo);
+					$("#postDate").val(data.vo.postDate);
+					$("#group1").val(data.vo.group1);
+					$("#group2").val(data.vo.group2);
+					$("#title").val(data.vo.title);
+					$("#content").val(data.vo.content);
+					$("#photo").val(data.vo.photo);
+					$("#registerBtn").hide();
+					$("#updateBtn").removeClass("hidden").addClass("show pull-right");
+					
+					$('.modal').modal('show');
+				}
+			});	
+		}
+	});
+	
+	// history 수정
+	$("#updateBtn").click(function() {
+		params = $("form").serialize();
+		
+		$.ajax({
+			url : './updateHistory',
 			type : 'GET',
 			dataType : 'json',
 			data : params,
 			success : function(data) {
-				if(data.requestMap.result == "1") {
-					alert("등록완료!");
-					$("#myModal").hide();
-				}
+				alert("수정되었습니다.");
+				window.location.reload(true);
 			}
-		});
+		});	
+	});
+	
+	// history 삭제
+	$(".cd-timeline-content .close").click(function() {
+		if(confirm("삭제하시겠습니까?")) {
+			
+// 			alert($(this).attr("data-history-no"));
+		}
 	});
 });
 </script>

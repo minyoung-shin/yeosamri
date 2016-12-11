@@ -3,18 +3,32 @@ package kr.co.yeosamri.vo;
 import java.util.*;
 
 public class HistoryVO {
-	private Date postDate;
+	private int historyNo;
+	private String postDate;
 	private String group1;
 	private String group2;
 	private String title;
 	private String content;
+	private String photoUrl;
 	private Date insertDate;
 	private Date editDate;
 	
-	public Date getPostDate() {
+	public int getHistoryNo() {
+		return historyNo;
+	}
+	public void setHistoryNo(int historyNo) {
+		this.historyNo = historyNo;
+	}
+	public String getPhotoUrl() {
+		return photoUrl;
+	}
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
+	}
+	public String getPostDate() {
 		return postDate;
 	}
-	public void setPostDate(Date postDate) {
+	public void setPostDate(String postDate) {
 		this.postDate = postDate;
 	}
 	public String getGroup1() {

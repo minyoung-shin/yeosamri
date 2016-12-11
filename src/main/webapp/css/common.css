@@ -8,25 +8,28 @@
 }
 
 /* body {background-image: url('../img/main.png'); background-size: cover;} */
-body {background-color: #fee857; font-family: 'computa'; font-weight: normal;}
+body {background-color: #D4B029; font-family: 'computa'; font-weight: normal;}
 
 .navbar {border-radius: 0px;}
 .navbar-default {background-color: #542708; border-color: #542708;}
+.navbar-default .navbar-toggle .icon-bar {background-color: #fff;}
 .navbar-brand, .navbar-nav>li>a {font-family: 'YouandiModernTR'; font-size: 20px; color: #fff !important;}
 .navbar-brand .logo {transform: rotate(-15deg); display: inline-block; margin-right: 5px;}
 
+.row {margin-bottom: 15px;}
+.btn {padding: 6px 12px 0px 12px; background-color: #144239; color: #fff;}
+.btn:HOVER {color: #ebebeb;}
 
+.cursor {cursor: pointer;}
 /* -------------------------------- 
 	villageHall.jsp
 -------------------------------- */
 .cd-container {
-  /* this class is used to give a max-width to the element it is applied to, and center it horizontally when it reaches that max-width */
   width: 100%;
   max-width: 1170px;
   margin: 0 auto;
 }
 .cd-container::after {
-  /* clearfix */
   content: '';
   display: table;
   clear: both;
@@ -38,14 +41,13 @@ body {background-color: #fee857; font-family: 'computa'; font-weight: normal;}
   margin-bottom: 2em;
 }
 #cd-timeline::before {
-  /* this is the vertical line */
   content: '';
   position: absolute;
   top: 0;
   left: 18px;
   height: 100%;
   width: 4px;
-  background: #d7e4ed;
+  background: #542708;
 }
 @media only screen and (min-width: 1170px) {
   #cd-timeline {
@@ -92,27 +94,14 @@ body {background-color: #fee857; font-family: 'computa'; font-weight: normal;}
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  box-shadow: 0 0 0 4px white, inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 3px 0 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 0 3px #542708, inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 3px 0 4px rgba(0, 0, 0, 0.05);
 }
 .cd-timeline-img img {
   display: block;
-  width: 24px;
-  height: 24px;
+  width: 100%;
   position: relative;
-  left: 50%;
-  top: 50%;
-  margin-left: -12px;
-  margin-top: -12px;
 }
-.cd-timeline-img.cd-picture {
-  background: #75ce66;
-}
-.cd-timeline-img.cd-movie {
-  background: #c03b44;
-}
-.cd-timeline-img.cd-location {
-  background: #f0ca45;
-}
+
 @media only screen and (min-width: 1170px) {
   .cd-timeline-img {
     width: 60px;
@@ -197,25 +186,20 @@ body {background-color: #fee857; font-family: 'computa'; font-weight: normal;}
   background: white;
   border-radius: 0.25em;
   padding: 1em;
-  box-shadow: 0 3px 0 #d7e4ed;
 }
 .cd-timeline-content:after {
   content: "";
   display: table;
   clear: both;
 }
-.cd-timeline-content h2 {
-  color: #303e49;
-}
 .cd-timeline-content p, .cd-timeline-content .cd-read-more, .cd-timeline-content .cd-date {
-  font-size: 13px;
-  font-size: 0.8125rem;
+  font-size: 12px;
 }
-.cd-timeline-content .cd-read-more, .cd-timeline-content .cd-date {
+.cd-timeline-content .cd-read-more {
   display: inline-block;
 }
 .cd-timeline-content p {
-  margin: 1em 0;
+  margin: 1em 0 0 0;
   line-height: 1.6;
 }
 .cd-timeline-content .cd-read-more {
@@ -228,11 +212,6 @@ body {background-color: #fee857; font-family: 'computa'; font-weight: normal;}
 .no-touch .cd-timeline-content .cd-read-more:hover {
   background-color: #bac4cb;
 }
-.cd-timeline-content .cd-date {
-  float: left;
-  padding: .8em 0;
-  opacity: .7;
-}
 .cd-timeline-content::before {
   content: '';
   position: absolute;
@@ -243,18 +222,21 @@ body {background-color: #fee857; font-family: 'computa'; font-weight: normal;}
   border: 7px solid transparent;
   border-right: 7px solid white;
 }
-@media only screen and (min-width: 768px) {
-  .cd-timeline-content h2 {
-    font-size: 20px;
-    font-size: 1.25rem;
-  }
+@media only screen and (min-device-width : 320px) {
   .cd-timeline-content p {
-    font-size: 16px;
-    font-size: 1rem;
+    font-size: 12px;
+  }
+  .cd-timeline-content img {
+  	position: relative;
+  	width: 100%;
+  	margin-top: 5px;
   }
   .cd-timeline-content .cd-read-more, .cd-timeline-content .cd-date {
-    font-size: 14px;
-    font-size: 0.875rem;
+    font-size: 13px;
+  }
+  .cd-date .glyphicon {
+  	top: 2px;
+  	margin-right: 5px;
   }
 }
 @media only screen and (min-width: 1170px) {
