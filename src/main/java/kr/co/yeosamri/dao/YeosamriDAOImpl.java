@@ -33,5 +33,10 @@ public class YeosamriDAOImpl implements YeosamriDAO {
 	public int updateHistory(HashMap<String, Object> requestMap) {
 		return mapper.update("Yeosamri.updateHistory", requestMap);
 	}
+
+	@Override
+	public int deleteHistory(HashMap<String, Object> requestMap) {
+		return mapper.delete("Yeosamri.deleteHistory", requestMap);
+	}
 	
 }

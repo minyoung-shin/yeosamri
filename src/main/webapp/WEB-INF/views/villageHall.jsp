@@ -149,7 +149,7 @@ $(document).ready(function() {
 					$("#group2").val(data.vo.group2);
 					$("#title").val(data.vo.title);
 					$("#content").val(data.vo.content);
-					$("#photo").val(data.vo.photo);
+// 					$("#photo").val(data.vo.photoUrl);
 					$("#registerBtn").hide();
 					$("#updateBtn").removeClass("hidden").addClass("show pull-right");
 					
@@ -177,9 +177,20 @@ $(document).ready(function() {
 	
 	// history 삭제
 	$(".cd-timeline-content .close").click(function() {
+		event.stopPropagation();
 		if(confirm("삭제하시겠습니까?")) {
-			
-// 			alert($(this).attr("data-history-no"));
+			$.ajax({
+				url : './deleteHistory',
+				type : 'GET',
+				dataType : 'json',
+				data : { "historyNo" : $(this).attr("data-history-no") },
+				success : function(data) {
+					if(data.result == "1") {
+						alert("삭제되었습니다.");
+						window.location.reload(true);
+					}
+				}
+			});	
 		}
 	});
 });

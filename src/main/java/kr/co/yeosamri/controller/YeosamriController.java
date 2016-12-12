@@ -1,11 +1,8 @@
 package kr.co.yeosamri.controller;
 
 import java.io.*;
-import java.text.DateFormat;
 import java.util.*;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,7 +38,8 @@ public class YeosamriController {
 	public ModelAndView insertHistory(Model model, @RequestParam HashMap<String, Object> requestMap,
 			MultipartHttpServletRequest mRequest) {
 		
-		String uploadPath 	  = "D:/programming/workspace/yeosamri/src/main/webapp/upload/";
+		String uploadPath 	  = "C:/workspace_temp/yeosamri/src/main/webapp/upload/";
+//		String uploadPath 	  = "D:/programming/workspace/yeosamri/src/main/webapp/upload/";
 //		String uploadPath 	  = "/usr/local/tomcat/webapps/yeosamri/upload/";
 		Iterator<String> iter = mRequest.getFileNames();
 		UUID randomUUID 	  = UUID.randomUUID();
@@ -53,7 +51,7 @@ public class YeosamriController {
 			
 			if(saveFileName != null && !saveFileName.equals(" ")) {
 				try {
-					mFile.transferTo(new File(uploadPath+randomUUID+"_"+saveFileName));  // 첨부된 파일을 지정한 경로에 저장해주는 메서드
+					mFile.transferTo(new File(uploadPath+randomUUID+"_"+saveFileName));  // 泥⑤��맂 �뙆�씪�쓣 吏��젙�븳 寃쎈줈�뿉 ���옣�빐二쇰뒗 硫붿꽌�뱶
 					requestMap.put("photoUrl", randomUUID+"_"+saveFileName);
 				} catch (IllegalStateException e) {					
 					e.printStackTrace();
@@ -80,7 +78,8 @@ public class YeosamriController {
 	@RequestMapping(value = "/updateHistory", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView updateHistory(Model model, @RequestParam HashMap<String, Object> requestMap,
 			MultipartHttpServletRequest mRequest) {
-		String uploadPath 	  = "D:/programming/workspace/yeosamri/src/main/webapp/upload/";
+		String uploadPath 	  = "C:/workspace_temp/yeosamri/src/main/webapp/upload/";
+//		String uploadPath 	  = "D:/programming/workspace/yeosamri/src/main/webapp/upload/";
 //		String uploadPath 	  = "/usr/local/tomcat/webapps/yeosamri/upload/";
 		Iterator<String> iter = mRequest.getFileNames();
 		UUID randomUUID 	  = UUID.randomUUID();
@@ -92,7 +91,7 @@ public class YeosamriController {
 			
 			if(saveFileName != null && !saveFileName.equals(" ")) {
 				try {
-					mFile.transferTo(new File(uploadPath+randomUUID+"_"+saveFileName));  // 첨부된 파일을 지정한 경로에 저장해주는 메서드
+					mFile.transferTo(new File(uploadPath+randomUUID+"_"+saveFileName));  // 泥⑤��맂 �뙆�씪�쓣 吏��젙�븳 寃쎈줈�뿉 ���옣�빐二쇰뒗 硫붿꽌�뱶
 					requestMap.put("photoUrl", randomUUID+"_"+saveFileName);
 				} catch (IllegalStateException e) {					
 					e.printStackTrace();
@@ -102,8 +101,15 @@ public class YeosamriController {
 			}			
 		}
 		
-		service.updateHistory(requestMap);
+//		service.updateHistory(requestMap);
 		modelAndView.setViewName("redirect:/villageHall");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/deleteHistory", method = {RequestMethod.GET, RequestMethod.POST})
+	public ModelAndView deleteHistory(Model model, @RequestParam HashMap<String, Object> requestMap) {
+		modelAndView.addObject("result", service.deleteHistory(requestMap));
 		
 		return modelAndView;
 	}

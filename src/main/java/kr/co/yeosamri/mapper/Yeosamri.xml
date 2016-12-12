@@ -51,4 +51,9 @@
     	WHERE history_no = #{historyNo}
     </update>
     
+    <delete id="deleteHistory" parameterType="hashmap">
+    	DELETE FROM HISTORY
+    	WHERE history_no = #{historyNo}
+    </delete>
+    
 </mapper>

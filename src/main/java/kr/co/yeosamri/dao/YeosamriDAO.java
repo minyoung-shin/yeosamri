@@ -9,4 +9,5 @@ public interface YeosamriDAO {
 	List<HistoryVO> selectHistory();
 	HistoryVO selectHistoryDetail(HashMap<String, Object> requestMap);
 	int updateHistory(HashMap<String, Object> requestMap);
+	int deleteHistory(HashMap<String, Object> requestMap);
 }

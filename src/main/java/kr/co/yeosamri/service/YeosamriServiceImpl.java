@@ -34,4 +34,9 @@ public class YeosamriServiceImpl implements YeosamriService {
 		return dao.updateHistory(requestMap);
 	}
 
+	@Override
+	public int deleteHistory(HashMap<String, Object> requestMap) {
+		return dao.deleteHistory(requestMap);
+	}
+
 }
