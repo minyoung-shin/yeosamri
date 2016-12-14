@@ -46,7 +46,9 @@
     		group2 = #{group2},
     		title = #{title},
     		content = #{content},
+    	<if test="photoUrl != null">
     		photo_url = #{photoUrl},
+    	</if>
     		edit_date = now() 
     	WHERE history_no = #{historyNo}
     </update>

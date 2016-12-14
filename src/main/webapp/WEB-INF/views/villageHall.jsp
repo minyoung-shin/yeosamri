@@ -4,13 +4,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-xs-12 text-right">
-			<a class="btn" data-toggle="modal" data-target=".bs-example-modal-lg">등록</a>
-			
-			<div class="hidden" id="insertWrap">
-				<div class="well">
-				  ...
-				</div>
-			</div>
+			<a class="btn" id="dialogBtn">등록</a>
 		</div>
 	</div>
 	
@@ -45,12 +39,12 @@
 	</div>
 </div>
 
-<!-- Modal -->
+<!-- dialog -->
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
-	    	<form action="insertHistory" class="form-horizontal" enctype="multipart/form-data" method="POST">
-			<input type="hidden" name="historyNo" id="historyNo">
+	    	<form class="form-horizontal" enctype="multipart/form-data" method="POST" id="dialogForm">
+	    	<input type="hidden" name="historyNo" id="historyNo">
 		    <div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title" id="myModalLabel">공지등록</h4>
@@ -94,13 +88,13 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-2 control-label">사진첨부</label>
+					<label class="col-sm-2 control-label">사진첨부<br>(파일 있는데 '선택된 파일없음' 써있다고 놀라지 마시오. 정상적으로 잘 반영되니ㅋㅋㅋ)</label>
 			 		<input type="file" class="col-sm-10" style="border-color: transparent;" name="photo" id="photo">
 				</div>
 		    </div>
 		    <div class="modal-footer">
-	     		<button type="submit" class="btn btn-primary" id="registerBtn">등록</button>
-	     		<button type="submit" class="btn btn-primary hidden" id="updateBtn">수정</button>
+	     		<button type="button" class="btn pull-right" id="registerBtn">등록</button>
+	     		<button type="button" class="btn pull-right" id="updateBtn">수정</button>
 		    </div>
 			</form>
 		</div>
@@ -134,43 +128,74 @@ $(document).ready(function() {
 		});
 	}
 	
-	// history 상세보기
-	$(".cd-timeline-block").click(function() {
-		if(confirm("수정하시겠습니까?")) {
-			$.ajax({
-				url : './selectHistoryDetail',
-				type : 'GET',
-				dataType : 'json',
-				data : { "historyNo" : $(this).attr("data-history-no") },
-				success : function(data) {
-					$("#historyNo").val(data.vo.historyNo);
-					$("#postDate").val(data.vo.postDate);
-					$("#group1").val(data.vo.group1);
-					$("#group2").val(data.vo.group2);
-					$("#title").val(data.vo.title);
-					$("#content").val(data.vo.content);
-// 					$("#photo").val(data.vo.photoUrl);
-					$("#registerBtn").hide();
-					$("#updateBtn").removeClass("hidden").addClass("show pull-right");
-					
-					$('.modal').modal('show');
+	// 등록 다이얼로그 보기
+	$("#dialogBtn").click(function() {
+		$("#postDate, #group1, #group2, #title, #content, #photo").val("");
+		$("#updateBtn").addClass("hidden").removeClass("show");
+		$("#registerBtn").addClass("show").removeClass("hidden");
+		
+		$('.modal').modal('show');
+	});
+	
+	// history 등록
+	$("#registerBtn").click(function() {
+		var form = new FormData(document.getElementById('dialogForm'));
+		
+	    $.ajax({
+			url: "./insertHistory",
+			data: form,
+			dataType: 'json',
+			processData: false,
+			contentType: false,
+			type: 'POST',
+			success: function (data) {
+				if(data.result == "1") {
+					alert("등록되었습니다.");
+					window.location.reload(true);
 				}
-			});	
-		}
+			}
+	    });
 	});
 	
 	// history 수정
 	$("#updateBtn").click(function() {
-		params = $("form").serialize();
+		var form = new FormData(document.getElementById('dialogForm'));
 		
+	    $.ajax({
+			url: "./updateHistory",
+			data: form,
+			dataType: 'json',
+			processData: false,
+			contentType: false,
+			type: 'POST',
+			success: function (data) {
+				if(data.result == "1") {
+					alert("수정되었습니다.");
+					window.location.reload(true);
+				}
+			}
+	    });
+	});
+	
+	// history 상세
+	$(".cd-timeline-block").click(function() {
 		$.ajax({
-			url : './updateHistory',
+			url : './selectHistoryDetail',
 			type : 'GET',
 			dataType : 'json',
-			data : params,
+			data : { "historyNo" : $(this).attr("data-history-no") },
 			success : function(data) {
-				alert("수정되었습니다.");
-				window.location.reload(true);
+				$("#historyNo").val(data.vo.historyNo);
+				$("#postDate").val(data.vo.postDate);
+				$("#group1").val(data.vo.group1);
+				$("#group2").val(data.vo.group2);
+				$("#title").val(data.vo.title);
+				$("#content").val(data.vo.content);
+// 				$("#photo").val(data.vo.photoUrl);
+				$("#registerBtn").addClass("hidden").removeClass("show");
+				$("#updateBtn").addClass("show").removeClass("hidden");
+				
+				$('.modal').modal('show');
 			}
 		});	
 	});
@@ -178,6 +203,7 @@ $(document).ready(function() {
 	// history 삭제
 	$(".cd-timeline-content .close").click(function() {
 		event.stopPropagation();
+		
 		if(confirm("삭제하시겠습니까?")) {
 			$.ajax({
 				url : './deleteHistory',

@@ -30,39 +30,36 @@ public class YeosamriController {
 	public String timeLine(Model model, @RequestParam HashMap<String, Object> requestMap) {
 		List<HistoryVO> historyList = service.selectHistory();
 		model.addAttribute("historyList", historyList);
-		
+
 		return "villageHall";
 	}
 	
 	@RequestMapping(value = "/insertHistory", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView insertHistory(Model model, @RequestParam HashMap<String, Object> requestMap,
 			MultipartHttpServletRequest mRequest) {
+//		String uploadPath = "D:/programming/workspace/yeosamri/src/main/webapp/upload/";
+		String uploadPath = "/usr/local/tomcat/webapps/yeosamri/upload/";
 		
-		String uploadPath 	  = "C:/workspace_temp/yeosamri/src/main/webapp/upload/";
-//		String uploadPath 	  = "D:/programming/workspace/yeosamri/src/main/webapp/upload/";
-//		String uploadPath 	  = "/usr/local/tomcat/webapps/yeosamri/upload/";
-		Iterator<String> iter = mRequest.getFileNames();
-		UUID randomUUID 	  = UUID.randomUUID();
+		UUID randomUUID 	 = UUID.randomUUID();
+		Iterator<String> itr = mRequest.getFileNames();
 		
-		while(iter.hasNext()) {
-			String uploadFileName 	= iter.next();			
-			MultipartFile mFile 	= mRequest.getFile(uploadFileName);
-			String saveFileName 	= mFile.getOriginalFilename();
+        if(itr.hasNext()) {
+        	MultipartFile mFile = mRequest.getFile(itr.next());
+			String saveFileName = mFile.getOriginalFilename();
 			
 			if(saveFileName != null && !saveFileName.equals(" ")) {
 				try {
-					mFile.transferTo(new File(uploadPath+randomUUID+"_"+saveFileName));  // 泥⑤��맂 �뙆�씪�쓣 吏��젙�븳 寃쎈줈�뿉 ���옣�빐二쇰뒗 硫붿꽌�뱶
+					mFile.transferTo(new File(uploadPath+randomUUID+"_"+saveFileName));
 					requestMap.put("photoUrl", randomUUID+"_"+saveFileName);
 				} catch (IllegalStateException e) {					
 					e.printStackTrace();
 				} catch (IOException e) {					
 					e.printStackTrace();
 				}
-			}			
-		}
+			}
+        }  
 		
-		requestMap.put("result", service.insertHistory(requestMap));
-		modelAndView.setViewName("redirect:/villageHall");
+        modelAndView.addObject("result", service.insertHistory(requestMap));
 		
 		return modelAndView;
 	}
@@ -78,20 +75,20 @@ public class YeosamriController {
 	@RequestMapping(value = "/updateHistory", method = {RequestMethod.GET, RequestMethod.POST})
 	public ModelAndView updateHistory(Model model, @RequestParam HashMap<String, Object> requestMap,
 			MultipartHttpServletRequest mRequest) {
-		String uploadPath 	  = "C:/workspace_temp/yeosamri/src/main/webapp/upload/";
-//		String uploadPath 	  = "D:/programming/workspace/yeosamri/src/main/webapp/upload/";
-//		String uploadPath 	  = "/usr/local/tomcat/webapps/yeosamri/upload/";
-		Iterator<String> iter = mRequest.getFileNames();
-		UUID randomUUID 	  = UUID.randomUUID();
+//		String uploadPath = "D:/programming/workspace/yeosamri/src/main/webapp/upload/";
+		String uploadPath = "/usr/local/tomcat/webapps/yeosamri/upload/";
 		
-		while(iter.hasNext()) {
-			String uploadFileName 	= iter.next();			
-			MultipartFile mFile 	= mRequest.getFile(uploadFileName);
-			String saveFileName 	= mFile.getOriginalFilename();
-			
-			if(saveFileName != null && !saveFileName.equals(" ")) {
+		UUID randomUUID 	 = UUID.randomUUID();
+		Iterator<String> itr = mRequest.getFileNames();
+		
+		if(itr.hasNext()) {
+			MultipartFile mFile = mRequest.getFile(itr.next());
+			String saveFileName = mFile.getOriginalFilename();
+
+			// 파일을 선택했을 때
+			if(saveFileName.length() > 0) {
 				try {
-					mFile.transferTo(new File(uploadPath+randomUUID+"_"+saveFileName));  // 泥⑤��맂 �뙆�씪�쓣 吏��젙�븳 寃쎈줈�뿉 ���옣�빐二쇰뒗 硫붿꽌�뱶
+					mFile.transferTo(new File(uploadPath+randomUUID+"_"+saveFileName));
 					requestMap.put("photoUrl", randomUUID+"_"+saveFileName);
 				} catch (IllegalStateException e) {					
 					e.printStackTrace();
@@ -101,8 +98,7 @@ public class YeosamriController {
 			}			
 		}
 		
-//		service.updateHistory(requestMap);
-		modelAndView.setViewName("redirect:/villageHall");
+		modelAndView.addObject("result", service.updateHistory(requestMap));
 		
 		return modelAndView;
 	}
